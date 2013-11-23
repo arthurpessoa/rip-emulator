@@ -11,10 +11,10 @@
  * 
  */
 
-package emulator;
+package emulator.network;
 
 public class NetworkEvent {
-        
+           
     private float evtime; /* event time */
     private int evtype; /* event type code */
     private int eventity; /* entity where event occurs */

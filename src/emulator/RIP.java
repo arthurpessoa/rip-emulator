@@ -12,24 +12,27 @@
  */
 package emulator;
 
-import java.util.ArrayList; 
+import emulator.network.NetworkEvent;
+import emulator.network.RoutinePacket; 
+
+import java.util.ArrayList;
 import java.util.Random;
 
-public class NetworkEmulator {
+public class RIP {
     
     private static Node0 node0 = new Node0();
     private static Node1 node1 = new Node1();
     private static Node2 node2 = new Node2();
     private static Node3 node3 = new Node3();   
     
-    static int TRACE = 0;
+    //gambis
+    public static int TRACE = 1;    
+    public static int FROM_LAYER2 = 2;
     
-    static int LINK_CHANGE = 10;
-    static int FROM_LAYER2 = 2;
     
-    static ArrayList<NetworkEvent> NetworkEventList = new ArrayList<>();
-    static RoutinePacket myRoutinePacket = new RoutinePacket();
-    static float lastime;
+    private static ArrayList<NetworkEvent> NetworkEventList = new ArrayList<>();
+    private static RoutinePacket myRoutinePacket = new RoutinePacket();
+    private static float lastime;
          
     public static void main(String[] args) {
     
@@ -44,6 +47,9 @@ public class NetworkEmulator {
             if(networkEvent == null){
                 break;
             }    
+            if(TRACE>=2){
+                System.out.println("DEBUG: Routine Packet Received from layer2. Source: "+networkEvent.getRtpkt().getSourceid()+" Destination: " +networkEvent.getRtpkt().getDestID()+" Timestamp: "+networkEvent.getEvtime());
+            }            
             
             //faz o update dos eventos
             if (networkEvent.getEvtype() == FROM_LAYER2){
@@ -80,44 +86,44 @@ public class NetworkEmulator {
         node1.rtinit1();
         node2.rtinit2();
         node3.rtinit3();
-        
     }
     
     
+    /* 
+     * Essa Função é responsável por enviar um pacote de rotina para a 
+     * layer2 (camada de enlace)
+     */
     public static void toLayer2(RoutinePacket pkt){
         
         Random rn = new Random();
         float timestamp = lastime + 2 * (rn.nextFloat() % 1);
         boolean directConnected[][] = new boolean[4][4];
-        //inicializando os custos das conexões
-        /*Custo do nó 0 para os demais*/
-        
+        //Verificando na layer2 quem está conectado diretamente a quen
+        //Conectividade do nó 0 para os demais      
         directConnected[0][0]=true;
         directConnected[0][1]=true;  
         directConnected[0][2]=true;
         directConnected[0][3]=true;
         
         
-        /*Custo do nó 1 para os demais*/
+        //Conectividade do nó 1 para os demais
         directConnected[1][0]=true;  
         directConnected[1][1]=true; 
         directConnected[1][2]=true;
         directConnected[1][3]=false; //não ligados diretamente
         
-        /*Custo do nó 2 para os demais*/
+        //Conectividade do nó 2 para os demais
         directConnected[2][0]=true; 
         directConnected[2][1]=true;  
         directConnected[2][2]=true;
         directConnected[2][3]=true;
         
-        /*Custo do nó 3 para os demais*/
-        
+        //Conectividade do nó 3 para os demais        
         directConnected[3][0]=true;  
         directConnected[3][1]=false; 
         directConnected[3][2]=true;
         directConnected[3][3]=true;
         
-       
         //  verifica se não tem nenhum problema com a origem e destino dos pacotes 
         //Caso os pacotes de fonte estejam fora do intervalo (0~3)
         if (pkt.getSourceid() <0 || pkt.getSourceid() >3)
@@ -145,10 +151,17 @@ public class NetworkEmulator {
           System.out.printf("WARNING: source and destination not connected, ignoring packet!\n");  
           return;
         }
-    
+        
        //Inicializa os valores ao pacote que irá para a lista de eventos
        myRoutinePacket.create(pkt.getSourceid(), pkt.getDestID(), pkt.getMinCost());         
        //adiciona o evento para a lista de eventos
+              
        NetworkEventList.add(new NetworkEvent(timestamp, FROM_LAYER2, myRoutinePacket.getDestID(), myRoutinePacket));
+       
+       
+       //Debug
+       if(TRACE>=2){
+           System.out.println("DEBUG: Routine Packet sent to layer2. Source: "+myRoutinePacket.getSourceid()+" Destination: " +myRoutinePacket.getDestID()+" Timestamp: "+timestamp);
+       }    
     }
 }

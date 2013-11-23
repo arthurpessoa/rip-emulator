@@ -13,6 +13,8 @@
 
 package emulator;
 
+import emulator.network.RoutinePacket;
+
 
 public class Node3 {
     private RoutinePacket rpkt = new RoutinePacket();
@@ -61,22 +63,24 @@ public void rtinit3(){//inicializa o nó
         if(dirCost3[0] < 999){
             rpkt.setSourceid(3);
             rpkt.setDestid(0);
-            NetworkEmulator.toLayer2(rpkt);
+            RIP.toLayer2(rpkt);
         }
 
         if(dirCost3[1] < 999){
             rpkt.setSourceid(3);
             rpkt.setDestid(1);
-            NetworkEmulator.toLayer2(rpkt);
+            RIP.toLayer2(rpkt);
         }
         
         if(dirCost3[2] < 999){
             rpkt.setSourceid(3);
             rpkt.setDestid(2);
-            NetworkEmulator.toLayer2(rpkt);
+            RIP.toLayer2(rpkt);
         }
-        System.out.print("Inserting Node3...\n");
-        printDt3();
+        if(RIP.TRACE==1||RIP.TRACE>2){
+            System.out.print("DEBUG: Inserting Node3...\n");
+            printDt3();
+        }
     
     }
         public void printDt3(){//imprimi a tabela de distancias
@@ -91,7 +95,6 @@ public void rtinit3(){//inicializa o nó
 
         
     public void rtupdate3(RoutinePacket rcvdpkt){//atualiza os valores com base no pacote recebido
-        
         //inicializa uma falg como falso
         boolean flag = false;
         int i, j;
@@ -121,23 +124,25 @@ public void rtinit3(){//inicializa o nó
         if(dirCost3[0] < 999){
             rpkt.setSourceid(3);
             rpkt.setDestid(0);
-            NetworkEmulator.toLayer2(rpkt);
+            RIP.toLayer2(rpkt);
         }
 
         if(dirCost3[1] < 999){
             rpkt.setSourceid(3);
             rpkt.setDestid(1);
-            NetworkEmulator.toLayer2(rpkt);
+            RIP.toLayer2(rpkt);
         }
         
         if(dirCost3[2] < 999){
             rpkt.setSourceid(3);
             rpkt.setDestid(2);
-            NetworkEmulator.toLayer2(rpkt);
+            RIP.toLayer2(rpkt);
                        
         }
-        System.out.print("Updating Node3...\n");
-        printDt3();
+        if(RIP.TRACE==1||RIP.TRACE>2){           
+            System.out.print("DEBUG: Updating Node3...\n");
+            printDt3();
+        }
       }   
     }
 }

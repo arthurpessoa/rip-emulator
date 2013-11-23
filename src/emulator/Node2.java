@@ -13,6 +13,8 @@
 
 package emulator;
 
+import emulator.network.RoutinePacket;
+
 
 public class Node2 {
     private RoutinePacket rpkt = new RoutinePacket();
@@ -62,22 +64,24 @@ public class Node2 {
         if(dirCost2[0] < 999){
             rpkt.setSourceid(2);
             rpkt.setDestid(0);
-            NetworkEmulator.toLayer2(rpkt);
+            RIP.toLayer2(rpkt);
         }
 
         if(dirCost2[1] < 999){
             rpkt.setSourceid(2);
             rpkt.setDestid(1);
-            NetworkEmulator.toLayer2(rpkt);
+            RIP.toLayer2(rpkt);
         }
         
         if(dirCost2[3] < 999){
             rpkt.setSourceid(2);
             rpkt.setDestid(3);
-            NetworkEmulator.toLayer2(rpkt);
+            RIP.toLayer2(rpkt);
         }
-        System.out.print("Inserting Node2...\n");
-        printDt2();
+        if(RIP.TRACE==1||RIP.TRACE>2){
+            System.out.print("DEBUG: Inserting Node2...\n");
+            printDt2();
+        }
     
     }
     
@@ -122,23 +126,24 @@ public class Node2 {
             if(dirCost2[0] < 999){
                 rpkt.setSourceid(2);
                 rpkt.setDestid(0);
-                NetworkEmulator.toLayer2(rpkt);
+                RIP.toLayer2(rpkt);
             }
 
             if(dirCost2[1] < 999){
                 rpkt.setSourceid(2);
                 rpkt.setDestid(1);
-                NetworkEmulator.toLayer2(rpkt);
+                RIP.toLayer2(rpkt);
             }
 
             if(dirCost2[3] < 999){
                 rpkt.setSourceid(2);
                 rpkt.setDestid(3);
-                NetworkEmulator.toLayer2(rpkt);
+                RIP.toLayer2(rpkt);
             }
-            
-            System.out.print("Updating Node2...\n");
-            printDt2();
+            if(RIP.TRACE==1||RIP.TRACE>2){
+                System.out.print("DEBUG: Updating Node2...\n");
+                printDt2();
+            }
         }
         
     }

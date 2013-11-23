@@ -11,17 +11,17 @@
  * 
  */
 
-package emulator;
+package emulator.network;
 
 
 public class RoutinePacket {
   private int sourceID;     /* id of sending router sending this pkt */
-  private int destID;         /* id of router to which pkt being sent 
-                         (must be an immediate neighbor) */
+  private int destID;       /* id of router to which pkt being sent 
+                              (must be an immediate neighbor) */
+  
   private int mincost[] = new int[4];  /* min cost to node 0 ... 3 */
 
   public RoutinePacket(){
-      
   }
   
   public void setSourceid(int id){
