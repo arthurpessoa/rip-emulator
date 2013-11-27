@@ -26,7 +26,7 @@ public class RIP {
     private static Node3 node3 = new Node3();   
     
     //gambis
-    public static int TRACE = 1;    
+    public static int TRACE = 3;    
     public static int FROM_LAYER2 = 2;
     
     
@@ -47,9 +47,13 @@ public class RIP {
             if(networkEvent == null){
                 break;
             }    
-            if(TRACE>=2){
-                System.out.println("DEBUG: Routine Packet Received from layer2. Source: "+networkEvent.getRtpkt().getSourceid()+" Destination: " +networkEvent.getRtpkt().getDestID()+" Timestamp: "+networkEvent.getEvtime());
-            }            
+            
+            /*
+            if(TRACE>2){
+                System.out.print("DEBUG: Routine Packet Received from layer2. Source: "+networkEvent.getRtpkt().getSourceid()+" Destination: " +networkEvent.getRtpkt().getDestID());
+                System.out.println(" Data: [ "+ myRoutinePacket.getMinCost()[0]+" "+ myRoutinePacket.getMinCost()[1]+" "+ myRoutinePacket.getMinCost()[2]+" "+ myRoutinePacket.getMinCost()[3]+" ]" + " Timestamp: "+networkEvent.getEvtime());
+            } 
+            */
             
             //faz o update dos eventos
             if (networkEvent.getEvtype() == FROM_LAYER2){
@@ -161,7 +165,8 @@ public class RIP {
        
        //Debug
        if(TRACE>=2){
-           System.out.println("DEBUG: Routine Packet sent to layer2. Source: "+myRoutinePacket.getSourceid()+" Destination: " +myRoutinePacket.getDestID()+" Timestamp: "+timestamp);
+           System.out.print("DEBUG: Routine Packet sent to layer2. Source: "+myRoutinePacket.getSourceid()+" Destination: " +myRoutinePacket.getDestID());
+           System.out.println(" Data: [ "+ myRoutinePacket.getMinCost()[0]+" "+ myRoutinePacket.getMinCost()[1]+" "+ myRoutinePacket.getMinCost()[2]+" "+ myRoutinePacket.getMinCost()[3]+" ]" + " Timestamp: "+timestamp);
        }    
     }
 }
