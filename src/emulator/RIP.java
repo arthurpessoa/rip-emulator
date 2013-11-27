@@ -25,7 +25,7 @@ public class RIP {
     private static Node2 node2 = new Node2();
     private static Node3 node3 = new Node3();   
     
-    //gambis
+ 
     public static int TRACE = 3;    
     public static int FROM_LAYER2 = 2;
     

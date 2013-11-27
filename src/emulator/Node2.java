@@ -87,7 +87,7 @@ public class Node2 {
     
     }
     
-    public void printDt2(){//imprimi a tabela de distancias
+    public void printDt2(){//imprime a tabela de distancias
         
         System.out.printf("\n");
         System.out.printf("   N2 | 0\t1\t3\n");
@@ -101,7 +101,7 @@ public class Node2 {
     
     public void rtupdate2(RoutinePacket rcvdpkt){//atualiza os valores com base no pacote recebido
         
-        //inicializa uma falg como falso
+        //inicializa uma flag como falso
         boolean flag = false;
         int i, j;
         

@@ -59,7 +59,7 @@ public class Node3 {
     public void rtinit3() {//inicializa o nó
         if (RIP.TRACE > 0) {
             System.out.println("\n\n-------------------------------------------------------------------------------------------------");
-            System.out.print("DEBUG: Updating Node3...\n");
+            System.out.print("DEBUG: Inserting Node3...\n");
         }
 
         if (RIP.TRACE == 1 || RIP.TRACE > 2) {
@@ -86,7 +86,7 @@ public class Node3 {
 
     }
 
-    public void printDt3() {//imprimi a tabela de distancias
+    public void printDt3() {//imprime a tabela de distancias
         System.out.printf("\n");
         System.out.printf("   N3 | 0\t1\t2\n");
         System.out.printf("  ----|----------------------------\n");
@@ -97,7 +97,7 @@ public class Node3 {
     }
 
     public void rtupdate3(RoutinePacket rcvdpkt) {//atualiza os valores com base no pacote recebido
-        //inicializa uma falg como falso
+        //inicializa uma flag como falso
         boolean flag = false;
         int i, j;
 
@@ -105,14 +105,14 @@ public class Node3 {
         //caso o custo atual for maior do que a soma do custo atualizado com o valor para chegar a tal nó
         //atualiza a tabela de custos e marca a flag como verdadeiro
         for (i = 0; i < 4; i++) {
-            //se custo atual for maior do que o custo minimo + o custo direto do nó atual para o nó destino atualiza custo
+            //se custo atual for maior do que o custo mínimo + o custo direto do nó atual para o nó destino atualiza custo
             if (costs.getCost(i, rcvdpkt.getSourceid()) > (rcvdpkt.getMinCost(i) + costs.getCost(rcvdpkt.getSourceid(), rcvdpkt.getSourceid()))) {
                 costs.setCost(i, rcvdpkt.getSourceid(), rcvdpkt.getMinCost(i) + costs.getCost(rcvdpkt.getSourceid(), rcvdpkt.getSourceid()));
                 flag = true;
             }
         }
 
-        //caso a flag seja verdadeira e o custo minimo for maior do que o custo, atualiza o custo minimo
+        //caso a flag seja verdadeira e o custo mínimo for maior do que o custo, atualiza o custo mínimo
         if (flag) {
             for (i = 0; i < 4; i++) {
                 for (j = 0; j < 4; j++) {
