@@ -60,7 +60,13 @@ public class Node0 {
     }
 
     public void rtinit0() {//inicializa o nó
-
+        if(RIP.TRACE>0){
+            System.out.println("\n\n-------------------------------------------------------------------------------------------------");
+            System.out.print("DEBUG: Initializing Node0...\n");
+        } 
+        if(RIP.TRACE==1||RIP.TRACE>2){
+            printDt0();
+        } 
         // Envia os pacotes para os outros nós que possuem caminho direto (custo minimo < 999)
         if (dirCost0[1] < 999) {
             RoutinePacket.setSourceid(0);
@@ -79,13 +85,11 @@ public class Node0 {
             RoutinePacket.setDestid(3);
             RIP.toLayer2(RoutinePacket);
         }
-        if(RIP.TRACE==1||RIP.TRACE>2){
-            System.out.print("DEBUG: Inserting Node0...\n");
-            printDt0();
-        }
+
     }
 
     public void printDt0() {//imprime a tabela de distancias
+        
         System.out.printf("\n");
         System.out.printf("   N0 | 1\t2\t3\n");
         System.out.printf("  ----|----------------------------\n");
@@ -113,6 +117,14 @@ public class Node0 {
 
         //caso a flag seja verdadeira e o custo minimo for maior do que o custo, atualiza o custo minimo
         if (flag) {
+            if(RIP.TRACE>0){
+                System.out.println("\n\n-------------------------------------------------------------------------------------------------");
+                System.out.print("DEBUG: Updating Node0...\n");
+            }
+            if(RIP.TRACE>2){
+                System.out.print("DEBUG: Significant Routine Packet Received from layer2. Source: "+rcvdpkt.getSourceid()+" Destination: " +rcvdpkt.getDestID());
+                System.out.println(" Data: [ "+ rcvdpkt.getMinCost()[0]+" "+ rcvdpkt.getMinCost()[1]+" "+ rcvdpkt.getMinCost()[2]+" "+ rcvdpkt.getMinCost()[3]+" ]");
+            }
             for (i = 0; i < 4; i++) {
                 for (j = 0; j < 4; j++) {
                     if (RoutinePacket.getMinCost(i) > costs.getCost(i, j)) {
@@ -120,7 +132,11 @@ public class Node0 {
                     }
                 }
             }
-
+            
+            
+            if(RIP.TRACE==1||RIP.TRACE>2){
+                printDt0();
+            }
             //caso tenha atualizado envia os pacotes para todos os nós que possuem ligação
             if (dirCost0[1] != 999) {
                 RoutinePacket.setSourceid(0);
@@ -139,12 +155,7 @@ public class Node0 {
                 RoutinePacket.setSourceid(0);
                 RoutinePacket.setDestid(3);
                 RIP.toLayer2(RoutinePacket);
-            }
-            
-            if(RIP.TRACE==1||RIP.TRACE>2){
-                System.out.print("DEBUG: Updating Node0...\n");
-                printDt0();
-            }
+            }            
         }
     }
 }

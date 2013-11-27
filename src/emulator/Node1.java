@@ -58,7 +58,13 @@ public class Node1 {
     }
 
     public void rtinit1() {//inicializa o nó
-
+        if(RIP.TRACE>0){
+            System.out.println("\n\n-------------------------------------------------------------------------------------------------");
+            System.out.print("DEBUG: Inserting Node1...\n");
+        }
+        if(RIP.TRACE==1||RIP.TRACE>2){         
+            printDt1();
+        }
         // Envia os pacotes para os outros nós que possuem caminho direto (custo minimo < 999)
         if (dirCost1[0] < 999) {
             rpkt.setSourceid(1);
@@ -80,13 +86,10 @@ public class Node1 {
 
             RIP.toLayer2(rpkt);
         }
-        if(RIP.TRACE==1||RIP.TRACE>2){
-            System.out.print("DEBUG: Inserting Node1...\n");
-            printDt1();
-        }
     }
 
     public void printDt1() {//imprime a tabela de distancias para o nó 1
+        
         System.out.printf("\n");
         System.out.printf("   N1 | 0\t2\t3\n");
         System.out.printf("  ----|----------------------------\n");
@@ -120,7 +123,17 @@ public class Node1 {
                     }
                 }
             }
-
+             if(RIP.TRACE>0){
+                System.out.println("\n\n-------------------------------------------------------------------------------------------------");
+                System.out.print("DEBUG: Updating Node1...\n"); 
+             }
+             if(RIP.TRACE>2){
+                System.out.print("DEBUG: Significant Routine Packet Received from layer2. Source: "+rcvdpkt.getSourceid()+" Destination: " +rcvdpkt.getDestID());
+                System.out.println(" Data: [ "+ rcvdpkt.getMinCost()[0]+" "+ rcvdpkt.getMinCost()[1]+" "+ rcvdpkt.getMinCost()[2]+" "+ rcvdpkt.getMinCost()[3]+" ]");
+            }
+             if(RIP.TRACE==1||RIP.TRACE>2){              
+                printDt1();
+            }
             //caso tenha atualizado envia os pacotes para todos os nós que possuem ligação
             if (dirCost1[0] < 999) {
                 rpkt.setSourceid(1);
@@ -138,10 +151,6 @@ public class Node1 {
                 rpkt.setSourceid(1);
                 rpkt.setDestid(3);
                 RIP.toLayer2(rpkt);
-            }
-            if(RIP.TRACE==1||RIP.TRACE>2){
-                System.out.print("DEBUG: Updating Node1...\n");
-                printDt1();
             }
         }
     }

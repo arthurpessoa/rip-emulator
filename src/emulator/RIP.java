@@ -47,14 +47,7 @@ public class RIP {
             if(networkEvent == null){
                 break;
             }    
-            
-            /*
-            if(TRACE>2){
-                System.out.print("DEBUG: Routine Packet Received from layer2. Source: "+networkEvent.getRtpkt().getSourceid()+" Destination: " +networkEvent.getRtpkt().getDestID());
-                System.out.println(" Data: [ "+ myRoutinePacket.getMinCost()[0]+" "+ myRoutinePacket.getMinCost()[1]+" "+ myRoutinePacket.getMinCost()[2]+" "+ myRoutinePacket.getMinCost()[3]+" ]" + " Timestamp: "+networkEvent.getEvtime());
-            } 
-            */
-            
+                        
             //faz o update dos eventos
             if (networkEvent.getEvtype() == FROM_LAYER2){
                 if (networkEvent.getEventity() == 0){
@@ -73,18 +66,19 @@ public class RIP {
             }           
             
         }
-        
+        System.out.println("\n\n-------------------------------------------------------------------------------------------------");
         System.out.print("Final Result: \n");
         node0.printDt0();
         node1.printDt1();
         node2.printDt2();
-        node3.printDt3();
-                
+        node3.printDt3();        
         System.out.print("\nSimulator terminated, no packets in medium\n");
     }
     
     public static void init(){
-                
+        System.out.println("-------------------------------------------------------------------------------------------------");
+        System.out.println("Initializing Routing Information Protocol Emulation...");
+
         //Inicialização dos nós
         node0.rtinit0();
         node1.rtinit1();
@@ -165,7 +159,7 @@ public class RIP {
        
        //Debug
        if(TRACE>=2){
-           System.out.print("DEBUG: Routine Packet sent to layer2. Source: "+myRoutinePacket.getSourceid()+" Destination: " +myRoutinePacket.getDestID());
+           System.out.print("DEBUG: Routine Packet sent to layer2. Source: Node"+myRoutinePacket.getSourceid()+" Destination: Node" +myRoutinePacket.getDestID());
            System.out.println(" Data: [ "+ myRoutinePacket.getMinCost()[0]+" "+ myRoutinePacket.getMinCost()[1]+" "+ myRoutinePacket.getMinCost()[2]+" "+ myRoutinePacket.getMinCost()[3]+" ]" + " Timestamp: "+timestamp);
        }    
     }
