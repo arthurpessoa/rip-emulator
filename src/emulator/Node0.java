@@ -62,7 +62,7 @@ public class Node0 {
     public void rtinit0() {//inicializa o nó
         if(RIP.TRACE>0){
             System.out.println("\n\n-------------------------------------------------------------------------------------------------");
-            System.out.print("DEBUG: Initializing Node0...\n");
+            System.out.print("DEBUG: Inserting Node0...\n");
         } 
         if(RIP.TRACE==1||RIP.TRACE>2){
             printDt0();

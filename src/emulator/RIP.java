@@ -25,8 +25,8 @@ public class RIP {
     private static Node2 node2 = new Node2();
     private static Node3 node3 = new Node3();   
     
- 
-    public static int TRACE = 3;    
+    
+    public static int TRACE = 3;    //não é a melhor abordagem
     public static int FROM_LAYER2 = 2;
     
     
